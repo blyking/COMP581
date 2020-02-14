@@ -1,0 +1,22 @@
+#!/usr/bin/env pybricks-micropython
+
+from pybricks import ev3brick as brick
+from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
+                                 InfraredSensor, UltrasonicSensor, GyroSensor)
+from pybricks.parameters import (Port, Stop, Direction, Button, Color,
+                                 SoundFile, ImageFile, Align)
+from pybricks.tools import print, wait, StopWatch
+from pybricks.robotics import DriveBase
+
+# Write your program here
+
+#Play a sound (to test that the robot is connected)
+brick.sound.beep()
+
+#Initialize motors at port B and C
+motor1 = Motor(Port.B)
+motor2 = Motor(Port.C)
+
+#Objective 1: Make robot run for 1.2m
+motor1.run(15)
+motor2.run(15)
