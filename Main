@@ -10,13 +10,48 @@ from pybricks.robotics import DriveBase
 
 # Write your program here
 
-#Play a sound (to test that the robot is connected)
-brick.sound.beep()
+#LAB 1
 
 #Initialize motors at port B and C
-motor1 = Motor(Port.B)
-motor2 = Motor(Port.C)
+motorB = Motor(Port.B)
+motorC = Motor(Port.C)
+sensor = UltrasonicSensor(Port.S4)
+robot = DriveBase(motorB, motorC, 56, 114)
 
-#Objective 1: Make robot run for 1.2m
-motor1.run(15)
-motor2.run(15)
+#Objective 1: odometry
+robot.drive_time(100, 0, 12500) #12500
+
+#Play a sound
+brick.sound.beep()
+
+while not any (brick.buttons()):
+    robot.stop()
+
+#Objective 2: ranging
+robot.drive(100, 0)
+while sensor.distance() > 500:
+    wait(1)
+robot.stop()
+brick.sound.beep()
+
+while not Button.CENTER in brick.buttons():
+    robot.stop()
+
+#Objective 3: Bumping
+robot.drive(100, 0)
+
+touch = TouchSensor(Port.S1)
+
+while not touch.pressed():
+    robot.drive(100, 0)
+
+motorB = Motor(Port.B, Direction.COUNTERCLOCKWISE)
+motorC = Motor(Port.C, Direction.COUNTERCLOCKWISE)
+robot = DriveBase(motorB, motorC, 56, 114)
+
+robot.drive(100, 0)
+
+while sensor.distance() < 500:
+    robot.drive(100,0)
+
+robot.stop()
